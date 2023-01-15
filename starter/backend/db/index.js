@@ -24,14 +24,23 @@ ORDER BY updated_at DESC`)
 }
 
 const createPost = async (title, body, authorID) => {
-  const { rows } = conn.query(
+  const { rows } = await conn.query(
     'INSERT INTO posts (title, body, author_id) VALUES ($1, $2, $3) RETURNING *',
     [title, body, authorID]
   )
   return rows?.length >= 1 ? rows[0] : null
 }
 
+const getUserByID = async userID => {
+  const { rows } = await conn.query(
+    'SELECT users.id, users.username, users.email FROM users WHERE id = $1',
+    [userID]
+  )
+  return rows[0]
+}
+
 module.exports = {
   getPosts,
-  createPost
+  createPost,
+  getUserByID,
 }

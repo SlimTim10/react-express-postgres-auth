@@ -1,9 +1,9 @@
-* Authentication and Session Management Example: React - Express - PostgreSQL
+* Authentication and Session Management Example: React + Express + PostgreSQL
 
 ** Set up
 
 1. Install [[https://www.postgresql.org/download/][PostgreSQL]].
-2. Create database "auth_example".
+2. Create database and user "auth_example".
    #+begin_src sh
    $ psql -U postgres
    postgres=# CREATE DATABASE auth_example;
@@ -19,3 +19,26 @@
    #+begin_src sh
    [~/react-express-postgres-auth/starter/backend]$ npm run seeddb
    #+end_src
+
+** Running
+
+Run the backend:
+   #+begin_src sh
+   [~/react-express-postgres-auth/starter/backend]$ npm start
+   #+end_src
+
+Run the frontend:
+   #+begin_src sh
+   [~/react-express-postgres-auth/starter/frontend]$ npm start
+   #+end_src
+
+** Explanation
+
+This is an example application to demonstrate how authentication and session management can be done with a React + Express + PostgreSQL stack.
+
+In the starter folder, an example app has been made but no authentication or session management has been implemented yet. Users exist in the database only as seed data and both signing in and registration is faked. This is typically how an app is developed, focusing on the more unique and important features first and leaving authentication for later.
+
+The app being built is a very simple multi-user blog. Users can register or sign in, then create posts which each have a title and body of text. Posts are shown as a simple list, sorted by most recent. A user can edit or delete their own posts.
+
+In order to keep the code relatively small, all error messages are printed in the console instead of shown on the page.
+
