@@ -1,0 +1,21 @@
+* Authentication and Session Management Example: React - Express - PostgreSQL
+
+** Set up
+
+1. Install [[https://www.postgresql.org/download/][PostgreSQL]].
+2. Create database "auth_example".
+   #+begin_src sh
+   $ psql -U postgres
+   postgres=# CREATE DATABASE auth_example;
+   postgres=# CREATE USER auth_example WITH PASSWORD '1234';
+   postgres=# GRANT ALL PRIVILEGES ON DATABASE auth_example TO auth_example;
+   postgres=# \q
+   #+end_src
+3. Create the tables.
+   #+begin_src sh
+   [~/react-express-postgres-auth/starter/backend]$ npm run builddb
+   #+end_src
+4. Seed the database. Since the starter doesn't include registration, we need to insert some dummy users into the database.
+   #+begin_src sh
+   [~/react-express-postgres-auth/starter/backend]$ npm run seeddb
+   #+end_src
