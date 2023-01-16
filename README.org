@@ -1,5 +1,15 @@
 * Authentication and Session Management Example: React + Express + PostgreSQL
 
+** What is this?
+
+This is an example application to demonstrate how authentication and session management can be done with a React + Express + PostgreSQL stack.
+
+In the starter folder, an example app has been made but no authentication or session management has been implemented yet. Users exist in the database only as seed data and both signing in and registration is faked. This is typically how an app is developed, focusing on the more unique and important features first and leaving authentication for later.
+
+The app being built is a very simple multi-user blog. Users can register or sign in, then create posts which each have a title and body of text. Posts are shown as a simple list, sorted by most recent. A user can edit or delete their own posts.
+
+In order to keep the code relatively small, error messages are printed in the console instead of shown on the page.
+
 ** Setup
 
 1. Install [[https://www.postgresql.org/download/][PostgreSQL]].
@@ -39,16 +49,6 @@ Run the frontend:
    [~/react-express-postgres-auth/starter/frontend]$ npm start
    #+end_src
 
-** Explanation
-
-This is an example application to demonstrate how authentication and session management can be done with a React + Express + PostgreSQL stack.
-
-In the starter folder, an example app has been made but no authentication or session management has been implemented yet. Users exist in the database only as seed data and both signing in and registration is faked. This is typically how an app is developed, focusing on the more unique and important features first and leaving authentication for later.
-
-The app being built is a very simple multi-user blog. Users can register or sign in, then create posts which each have a title and body of text. Posts are shown as a simple list, sorted by most recent. A user can edit or delete their own posts.
-
-In order to keep the code relatively small, error messages are printed in the console instead of shown on the page.
-
 ** Implementing authentication and session management
 
 Authentication and sessions should be managed primarily in the backend. That means the backend should create and store sessions, while the frontend only keeps track of a session ID.
@@ -63,6 +63,8 @@ Authentication and sessions should be managed primarily in the backend. That mea
 
 5. Update the ~POST /posts~ route for creating a post. The session ID is received in a cookie and should be validated (make sure it exists in the database). Retrieve the user associated with the session and create the post with them as the author.
 
-7. Create route for deleting a post: ~DELETE /posts/:postID~. A post may only be deleted by its author. The signed in user should be retrieved from the database by the given session ID from the cookie. Update frontend to use this route.
+6. Create route for deleting a post: ~DELETE /posts/:postID~. A post may only be deleted by its author. The signed in user should be retrieved from the database by the given session ID from the cookie. Update frontend to use this route.
 
-8. Create route for updating a post: ~PUT /posts/:postID~. A post may only be updated by its author. Update frontend to toggle editing and use this route to save the changes.
+7. Create route for updating a post: ~PUT /posts/:postID~. A post may only be updated by its author. Update frontend to toggle editing and use this route to save the changes.
+
+8. Bonus: use localStorage to make user data persist through page refresh on the frontend (so a signed in user doesn't need to sign in again when they refresh the page).
