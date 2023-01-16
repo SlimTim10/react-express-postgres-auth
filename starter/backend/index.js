@@ -10,8 +10,8 @@ app.use(bodyParser.json())
 // Get all posts
 app.get('/posts', async (req, res) => {
   try {
-    const results = await db.getPosts()
-    res.send(results)
+    const posts = await db.getPosts()
+    res.send(posts)
   } catch (err) {
     console.log(err)
     res.status(400).send({error: true, message: `Couldn't get posts.`})
@@ -26,8 +26,8 @@ app.post('/posts', async (req, res) => {
   const userID = 1
   
   try {
-    const results = await db.createPost(title, body, userID)
-    res.status(201).send(results)
+    const newPost = await db.createPost(title, body, userID)
+    res.status(201).send(newPost)
   } catch (err) {
     console.log(err)
     res.status(400).send({error: true, message: `Couldn't create post.`})
@@ -50,7 +50,11 @@ app.post('/register', async (req, res) => {
 app.post('/signin', async (req, res) => {
   try {
     const user = await db.getUserByID(1)
-    res.send(user)
+    res.send({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    })
   } catch (err) {
     console.log(err)
     res.status(400).send({error: true, message: `Couldn't sign in.`})

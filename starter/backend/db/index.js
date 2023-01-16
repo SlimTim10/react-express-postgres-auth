@@ -33,10 +33,10 @@ const createPost = async (title, body, authorID) => {
 
 const getUserByID = async userID => {
   const { rows } = await conn.query(
-    'SELECT users.id, users.username, users.email FROM users WHERE id = $1',
+    'SELECT * FROM users WHERE id = $1',
     [userID]
   )
-  return rows[0]
+  return rows?.length >= 1 ? rows[0] : null
 }
 
 module.exports = {
