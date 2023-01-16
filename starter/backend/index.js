@@ -34,6 +34,17 @@ app.post('/posts', async (req, res) => {
   }
 })
 
+// Register
+// Since we don't have authentication yet, pretend the registration succeeded (send back success)
+app.post('/register', async (req, res) => {
+  try {
+    res.status(201).send({error: false})
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({error: true, message: `Couldn't register.`})
+  }
+})
+
 // Sign in
 // Since we don't have authentication yet, pretend the sign in succeeded (send back the first user)
 app.post('/signin', async (req, res) => {
@@ -46,14 +57,14 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-// Register
-// Since we don't have authentication yet, pretend the registration succeeded (send back success)
-app.post('/register', async (req, res) => {
+// Sign out
+// Since we don't have authentication yet, pretend the sign out succeeded (send back success)
+app.post('/signout', async (req, res) => {
   try {
-    res.status(201).send({error: false})
+    res.send({error: false})
   } catch (err) {
     console.log(err)
-    res.status(400).send({error: true, message: `Couldn't register.`})
+    res.status(400).send({error: true, message: `Couldn't sign out.`})
   }
 })
 

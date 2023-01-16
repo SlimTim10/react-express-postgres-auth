@@ -42,3 +42,10 @@ The app being built is a very simple multi-user blog. Users can register or sign
 
 In order to keep the code relatively small, all error messages are printed in the console instead of shown on the page.
 
+** Implementing authentication and session management
+
+Authentication and sessions should be managed primarily in the backend. That means the backend should create and store sessions, while the frontend only keeps track of a session ID.
+
+1. Create a sessions table in the database. Each session should be associated with a user.
+2. Update the ~POST /register~ route
+3. 

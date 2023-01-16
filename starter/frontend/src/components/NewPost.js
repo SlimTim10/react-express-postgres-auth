@@ -12,6 +12,7 @@ const NewPost = ({ createPost }) => {
   return (
     <div className="NewPost">
       <form onSubmit={handleSubmit}>
+        <h2>New Post</h2>
         <input
           type="text"
           value={title}

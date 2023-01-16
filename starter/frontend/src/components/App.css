@@ -17,6 +17,10 @@
   align-items: flex-start;
 }
 
+.NewPost {
+  background: white;
+}
+
 .NewPost form {
   display: flex;
   flex-direction: column;
@@ -46,6 +50,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  background: white;
 }
 
 .Post p {

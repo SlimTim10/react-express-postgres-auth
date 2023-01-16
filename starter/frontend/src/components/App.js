@@ -25,6 +25,25 @@ const App = () => {
     fetchPosts()
   }, [])
 
+  const register = async (username, email, password) => {
+    try {
+      const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({username, email, password}),
+      })
+
+      const data = await response.json()
+      if (data.error) throw data.message
+      
+      signIn(username, password)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
   const signIn = async (username, password) => {
     try {
       const response = await fetch('/signin', {
@@ -44,20 +63,20 @@ const App = () => {
     }
   }
   
-  const register = async (username, email, password) => {
+  const signOut = async () => {
     try {
-      const response = await fetch('/register', {
+      const response = await fetch('/signout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({username, email, password}),
+        body: JSON.stringify({}),
       })
 
       const data = await response.json()
       if (data.error) throw data.message
       
-      signIn(username, password)
+      setUser(null)
     } catch (err) {
       console.log(err)
     }
@@ -90,9 +109,12 @@ const App = () => {
           signIn={signIn}
           register={register}
         />
-        : <p>Welcome, {user.username}!</p>
+        : <p>Welcome, {user.username}! <button onClick={e => signOut()}>Sign Out</button></p>
       }
-      <NewPost createPost={createPost} />
+      
+      {user !== null && <NewPost createPost={createPost} />}
+      
+      <h1>Latest Posts</h1>
       <div className="Posts">
         {posts.map(post => <Post key={post.id} {...post} currentUser={user} />)}
       </div>
