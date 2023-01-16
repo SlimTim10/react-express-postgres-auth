@@ -23,6 +23,14 @@ ORDER BY updated_at DESC`)
   ))
 }
 
+const getPostByID = async id => {
+  const { rows } = await conn.query(
+    'SELECT * FROM posts WHERE id = $1',
+    [id]
+  )
+  return rows?.length >= 1 ? rows[0] : null
+}
+
 const createPost = async (title, body, authorID) => {
   const { rows } = await conn.query(
     'INSERT INTO posts (title, body, author_id) VALUES ($1, $2, $3) RETURNING *',
@@ -37,6 +45,14 @@ const deletePost = async id => {
     [id]
   )
   return null
+}
+
+const updatePost = async (id, title, body) => {
+  const { rows } = await conn.query(
+    'UPDATE posts SET title = $2, body = $3 WHERE id = $1 RETURNING *',
+    [id, title, body]
+  )
+  return rows?.length >= 1 ? rows[0] : null
 }
 
 const getUserByID = async userID => {
@@ -93,23 +109,16 @@ const getUserBySessionID = async sessionID => {
   return userResult.rows.length >= 1 ? userResult.rows[0] : null
 }
 
-const getPostByID = async id => {
-  const { rows } = await conn.query(
-    'SELECT * FROM posts WHERE id = $1',
-    [id]
-  )
-  return rows?.length >= 1 ? rows[0] : null
-}
-
 module.exports = {
   getPosts,
+  getPostByID,
   createPost,
   deletePost,
+  updatePost,
   getUserByID,
   getUserByUsername,
   createUser,
   createSession,
   deleteSession,
   getUserBySessionID,
-  getPostByID,
 }

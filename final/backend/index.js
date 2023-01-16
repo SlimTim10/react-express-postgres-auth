@@ -63,6 +63,29 @@ app.delete('/posts/:id', async (req, res) => {
   }
 })
 
+// Update a post
+// A user must be signed in with a valid session and may only update posts that they made.
+app.put('/posts/:id', async (req, res) => {
+  try {
+    const postID = req.params.id
+    const { sessionID } = req.cookies
+    const { title, body } = req.body
+
+    const user = await db.getUserBySessionID(sessionID)
+    if (user === null) throw `Couldn't get user with given session.`
+
+    const post = await db.getPostByID(postID)
+    if (post === null) throw `Couldn't get post.`
+    if (post.author_id !== user.id) throw `Post doesn't belong to user.`
+    
+    await db.updatePost(postID, title, body)
+    res.send({error: false})
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({error: true, message: `Couldn't delete post.`})
+  }
+})
+
 // Register
 // Save user to the database and create a session.
 // Username and email duplication validation is handled by constraints in the schema.
